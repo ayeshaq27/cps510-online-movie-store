@@ -1,5 +1,3 @@
-# generate_connect.py
-
 import getpass
 
 host = "oracle12c.cs.torontomu.ca"
@@ -15,4 +13,5 @@ connect_str = (
     f"(CONNECT_DATA=(SERVICE_NAME={service_name})))"
 )
 
+# print only the connect string so conn.sh can capture it
 print(connect_str)
