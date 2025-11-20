@@ -96,7 +96,28 @@ def show_library_gui(username: str):
         display_row = ["" if cell is None else str(cell) for cell in row]
         tree.insert("", tk.END, values=display_row)
 
+    # Button frame: Back (to movies) and Close
+    btn_frame = tk.Frame(root)
+    btn_frame.pack(pady=8)
+
+    result = {"code": 0}  # 0=closed, 1=done/ok, 2=back to movies
+
+    def on_back():
+        result["code"] = 2
+        root.destroy()
+
+    def on_close():
+        result["code"] = 0
+        root.destroy()
+
+    back_btn = tk.Button(btn_frame, text="Back", width=12, command=on_back)
+    close_btn = tk.Button(btn_frame, text="Close", width=12, command=on_close)
+    back_btn.pack(side=tk.LEFT, padx=6)
+    close_btn.pack(side=tk.LEFT, padx=6)
+
+    root.protocol("WM_DELETE_WINDOW", on_close)
     root.mainloop()
+    return result["code"]
 
 
 if __name__ == "__main__":
