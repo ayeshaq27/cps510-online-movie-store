@@ -140,6 +140,9 @@ CREATE TABLE Developer_main (
     Password    VARCHAR2(72) NOT NULL
 );
 
+-- Ensure (Email, Github) is unique so other tables can reference it
+ALTER TABLE Developer_main ADD CONSTRAINT developer_main_email_github_uk UNIQUE (Email, Github);
+
 PROMPT === DEVELOPER_SPECIALITY ===
 CREATE TABLE Developer_speciality (
     Email       VARCHAR2(50) NOT NULL,
