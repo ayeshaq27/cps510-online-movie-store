@@ -5,20 +5,90 @@ import textwrap
 import oracledb
 
 # --- DB CONFIG ---
-DB_USER = "a57qures"
-DB_PASSWORD = "01273534"
+# Host/port/service defaults (used when an explicit connect string is not provided)
 DB_HOST = "oracle12c.cs.torontomu.ca"
 DB_PORT = 1521
 DB_SERVICE = "orcl12c"
 
-# THIS LINE IS MISSING IN YOUR FILE
+
+
+# Optional env forms:
+# - ORA_CONNECT  -> full connect string in the form user/password@(DESCRIPTION=...)
+# - DB_USER / DB_PASSWORD -> username and password separately
+DB_USER = os.environ.get("DB_USER")
+DB_PASSWORD = os.environ.get("DB_PASSWORD")
+ORA_CONNECT = os.environ.get("ORA_CONNECT")
+
+# Script directory (used by run_file)
 SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))
 
 
 def get_connection():
-    """Create and return an Oracle database connection."""
+    """Create and return an Oracle database connection.
+
+    Behavior:
+      - If `ORA_CONNECT` environment variable is set, parse it for user/password
+        and the DESCRIPTION dsn and try that first.
+      - Otherwise, use `DB_USER`/`DB_PASSWORD` env vars if present.
+      - If credentials are still missing and stdin is a TTY, prompt the user.
+      - Finally, fall back to compiled defaults.
+    """
+    # Work with module globals so values found here persist for the session
+    global DB_USER, DB_PASSWORD, ORA_CONNECT
+
+    # 1) If ORA_CONNECT provided, try to parse and use it directly
+    if ORA_CONNECT:
+        conn_str = ORA_CONNECT.strip()
+        if "@" in conn_str:
+            creds, dsn_part = conn_str.split("@", 1)
+            if "/" in creds:
+                user, pwd = creds.split("/", 1)
+            else:
+                user = None
+                pwd = None
+            dsn = dsn_part
+            db_user = user or DB_USER 
+            db_password = pwd or DB_PASSWORD 
+            try:
+                # Persist parsed credentials for this session
+                DB_USER = db_user
+                DB_PASSWORD = db_password
+                return oracledb.connect(user=db_user, password=db_password, dsn=dsn)
+            except oracledb.Error:
+                # Fall through to other methods for clearer prompts/errors
+                pass
+
+    # 2) No ORA_CONNECT (or it failed): determine user/password
+    db_user = DB_USER
+    db_password = DB_PASSWORD
+
+    # If missing and interactive, prompt
+    if (not db_user or not db_password) and sys.stdin.isatty():
+        try:
+            import getpass
+
+            if not db_user:
+                db_user = input(f"DB user: ").strip() 
+                # save for session
+                DB_USER = db_user
+            if not db_password:
+                db_password = getpass.getpass("DB password: ")
+                # save for session
+                DB_PASSWORD = db_password
+        except Exception:
+            db_user = db_user or None
+            db_password = db_password or None
+
+    # Final fallback to defaults if still missing
+    db_user = db_user 
+    db_password = db_password 
+    # persist final resolved credentials for session
+    DB_USER = db_user
+    DB_PASSWORD = db_password
+
+    # Build a standard DSN from host/port/service and connect
     dsn = oracledb.makedsn(DB_HOST, DB_PORT, service_name=DB_SERVICE)
-    return oracledb.connect(user=DB_USER, password=DB_PASSWORD, dsn=dsn)
+    return oracledb.connect(user=db_user, password=db_password, dsn=dsn)
 
 
 # --- UI HELPERS ---
