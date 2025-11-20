@@ -6,6 +6,7 @@ def main():
     try:
         print("[*] Creating tables from sql/schema.sql ...")
         run_file(conn, "sql/schemaA8.sql")
+        run_file(conn, "sql/seedA8.sql")
         conn.commit()
     finally:
         conn.close()

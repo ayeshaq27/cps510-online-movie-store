@@ -125,19 +125,19 @@ PROMPT === BORROW POPULATED ===
 INSERT INTO Borrow (Copy_ID, Username, Start_Date, Returned_On)
 VALUES ('AVG02','bob', DATE '2025-09-24', NULL);
 
-INSERT INTO Borrow VALUES
+INSERT INTO Borrow (Copy_ID, Username, Start_Date, Returned_On) VALUES
 ('SPI06','alice', DATE '2025-09-10', DATE '2025-09-12');
 
-INSERT INTO Borrow VALUES
+INSERT INTO Borrow (Copy_ID, Username, Start_Date, Returned_On) VALUES
 ('PARA09','dave', DATE '2025-09-15', NULL);
 
-INSERT INTO Borrow VALUES
+INSERT INTO Borrow (Copy_ID, Username, Start_Date, Returned_On) VALUES
 ('DARK2','eve', DATE '2025-09-26', NULL);
 
-INSERT INTO Borrow VALUES
+INSERT INTO Borrow (Copy_ID, Username, Start_Date, Returned_On) VALUES
 ('IDI1','carol', DATE '2025-09-18', DATE '2025-09-20');
 
-INSERT INTO Borrow VALUES
+INSERT INTO Borrow (Copy_ID, Username, Start_Date, Returned_On) VALUES
 ('AVG03','alice', DATE '2025-09-01', DATE '2025-09-04');
 
 ------------------------------------------------------------

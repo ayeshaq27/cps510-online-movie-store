@@ -26,9 +26,9 @@ def main():
     conn = get_connection()
     try:
         # Optionally refresh views
-        print("[*] Refreshing views from sql/a5_views.sql ...")
+        print("[*] Refreshing views from sql/a8_views.sql ...")
         from connect import run_file
-        run_file(conn, "sql/a5_views.sql")
+        run_file(conn, "sql/a8_views.sql")
 
         print("[*] Fetching list of all user tables...")
 
