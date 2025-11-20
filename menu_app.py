@@ -8,7 +8,7 @@ import populate_table
 import queries
 import snapshots      # <-- add this
 import create_table_A8
-
+import queriesA8
 
 def main():
     # quick connection test
@@ -59,6 +59,7 @@ def main():
         elif choice == "6":
             drop_table_A8.main()
             create_table_A8.main()
+            queriesA8.main()
             pause()
 
         elif choice in ("E", "e", "Q", "q", "0"):

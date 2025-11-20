@@ -5,8 +5,9 @@ def main():
     conn = get_connection()
     try:
         print("[*] Creating tables from sql/schema.sql ...")
-        run_file(conn, "sql/schemaA8.sql")
+        run_file(conn, "sql/snapshotsA8.sql")
         conn.commit()
+        print("[✓] Tables created successfully.")
     finally:
         conn.close()
 
