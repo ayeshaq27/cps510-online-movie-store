@@ -6,13 +6,25 @@ import oracledb
 from connect import get_connection
 
 
-def fetch_movies():
-    """Fetch all movies from the MOVIES table."""
+def fetch_movies(search: str = None):
+    """Fetch movies from the MOVIES table.
+
+    If `search` is provided (substring), return movies whose MOVIE_NAME
+    contains the search text (case-insensitive).
+    """
     conn = None
     try:
         conn = get_connection()
         cur = conn.cursor()
-        cur.execute("SELECT * FROM MOVIES ORDER BY ID")
+
+        if search and search.strip():
+            # Use case-insensitive search on MOVIE_NAME
+            q = "SELECT * FROM MOVIES WHERE UPPER(MOVIE_NAME) LIKE :p ORDER BY ID"
+            param = {"p": f"%{search.strip().upper()}%"}
+            cur.execute(q, param)
+        else:
+            cur.execute("SELECT * FROM MOVIES ORDER BY ID")
+
         rows = cur.fetchall()
         cols = [d[0] for d in cur.description]
         return cols, rows
@@ -49,6 +61,16 @@ def show_movies_gui():
     title_label = tk.Label(root, text="Available Movies", font=("Arial", 16))
     title_label.pack(pady=10)
 
+    # Search area
+    search_frame = tk.Frame(root)
+    search_frame.pack(padx=10, pady=(0, 6), fill=tk.X)
+
+    tk.Label(search_frame, text="Search:").pack(side=tk.LEFT)
+    entry_search = tk.Entry(search_frame)
+    entry_search.pack(side=tk.LEFT, fill=tk.X, expand=True, padx=(6, 6))
+    btn_search = tk.Button(search_frame, text="Find")
+    btn_search.pack(side=tk.LEFT)
+
     frame = tk.Frame(root)
     frame.pack(fill=tk.BOTH, expand=True, padx=10, pady=10)
 
@@ -78,6 +100,24 @@ def show_movies_gui():
     for row in rows:
         display_row = ["" if cell is None else str(cell) for cell in row]
         tree.insert("", tk.END, values=display_row)
+
+    def refresh_tree(search_text: str = None):
+        for i in tree.get_children():
+            tree.delete(i)
+        c, r = fetch_movies(search_text)
+        for row in r:
+            display_row = ["" if cell is None else str(cell) for cell in row]
+            tree.insert("", tk.END, values=display_row)
+
+    def do_search(event=None):
+        txt = entry_search.get().strip()
+        if not txt:
+            refresh_tree(None)
+        else:
+            refresh_tree(txt)
+
+    btn_search.config(command=do_search)
+    entry_search.bind("<Return>", do_search)
 
     # Button frame
     btn_frame = tk.Frame(root)
