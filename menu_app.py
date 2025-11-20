@@ -6,6 +6,7 @@ import create_table
 import populate_table
 import queries
 import snapshots      # <-- add this
+import create_table_A8
 
 
 def main():
@@ -29,6 +30,7 @@ def main():
         print("  3) Populate Tables")
         print("  4) Snapshots (from views)")
         print("  5) Run ALL Advanced Queries (allQ.sql)\n")
+        print("  6) Run ALL Advanced Queries BNF\n")
         print("  E) End/Exit\n")
         choice = input("Choose: ").strip()
 
@@ -51,6 +53,10 @@ def main():
 
         elif choice == "5":
             queries.main()
+            pause()
+        
+        elif choice == "6":
+            create_table_A8.main()
             pause()
 
         elif choice in ("E", "e", "Q", "q", "0"):
