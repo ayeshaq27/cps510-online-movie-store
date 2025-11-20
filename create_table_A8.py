@@ -6,7 +6,7 @@ def main():
     try:
         print("[*] Creating tables from sql/schema.sql ...")
         run_file(conn, "sql/schemaA8.sql")
-        run_file(conn, "sql/allQA8.sql")
+        run_file(conn, "sql/snapshotsA8.sql")
         conn.commit()
         print("[✓] Tables created successfully.")
     finally:
