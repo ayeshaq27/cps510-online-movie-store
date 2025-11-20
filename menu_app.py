@@ -2,6 +2,7 @@
 import sys
 from connect import header, pause, get_connection, run_sql
 import drop_table
+import drop_table_A8
 import create_table
 import populate_table
 import queries
@@ -56,6 +57,7 @@ def main():
             pause()
         
         elif choice == "6":
+            drop_table_A8.main()
             create_table_A8.main()
             pause()
 
