@@ -1,72 +1,58 @@
-CPS510 – Online Movie Store
+# CPS510 – Online Movie Store
 
-This project is a Python-based Online Movie Store application that supports multiple user roles, including Customer, Customer Service, Content Manager, and Developer. The application uses an Oracle database and runs locally through the terminal.
+This project is a Python-based Online Movie Store application that supports multiple user roles, including **Customer**, **Customer Service**, **Content Manager**, and **Developer**. The application connects to an **Oracle database** and runs locally via the terminal.
 
-Repository link:
+GitHub Repository:  
 https://github.com/ayeshaq27/cps510-online-movie-store.git
 
-⚠️ Note: This application must be downloaded and run locally. It cannot be run directly from GitHub.
+> ⚠️ **Important:** This project must be downloaded and run locally. It cannot be run directly from GitHub.
 
-Prerequisites
+---
 
-Before running the application, ensure you have:
+## Prerequisites
 
-Python 3.8 or later
+Make sure you have the following installed:
+- Python **3.8 or later**
+- `pip`
+- An Oracle Database account
+- Oracle username and password
 
-pip installed
+---
 
-Access to an Oracle database
+## Installation & Setup
 
-Your Oracle username and password
+### macOS (MacBook)
 
-Installation Instructions
-macOS (MacBook)
+1. Go to the GitHub repository.
+2. Click **Code → Download ZIP**.
+3. Double-click the ZIP file to extract it.
+4. Open **Visual Studio Code** and open the extracted folder.
+5. Open the terminal (`View → Terminal`).
+6. Install the required dependency:
+   ```bash
+   pip3 install oracledb
+7. Navigate to the project directory if needed:
+    cd path/to/extracted/folder
+8. Run the application:
+    python3 landing_page.py
 
-Go to the GitHub repository:
-https://github.com/ayeshaq27/cps510-online-movie-store
+Linux (Ubuntu / Debian)
 
-Click Code → Download ZIP.
-
-Double-click the downloaded ZIP file to extract it.
-
-Open Visual Studio Code and select File → Open Folder, then open the extracted project folder.
-
-Open the terminal (VS Code: View → Terminal or macOS Terminal).
-
-Install the required dependency:
-
-pip3 install oracledb
-
-
-Navigate to the project directory if needed:
-
-cd path/to/extracted/folder
-
-
-Run the application:
-
-python3 landing_page.py
-
-
-You will be redirected to the login screen.
-
-Linux (Ubuntu / Debian / similar)
-
-Download the ZIP file from the GitHub repository.
+Download the ZIP from GitHub.
 
 Extract the files:
 
 unzip cps510-online-movie-store.zip
 
 
-Open the extracted folder in Visual Studio Code or your preferred editor.
+Open the project folder in VS Code or another editor.
 
-Install the required package:
+Install the dependency:
 
 pip3 install oracledb
 
 
-Navigate to the project folder:
+Navigate to the folder:
 
 cd cps510-online-movie-store
 
@@ -75,40 +61,32 @@ Run the application:
 
 python3 landing_page.py
 
-
-The login screen will appear.
-
 Windows
 
-Go to the GitHub repository and click Code → Download ZIP.
+Download the ZIP from GitHub and extract it.
 
-Right-click the ZIP file and select Extract All.
+Open the folder in Visual Studio Code.
 
-Open the extracted folder in Visual Studio Code.
-
-Open the terminal (Ctrl + ) or use Command Prompt.
+Open the terminal (Ctrl + ).
 
 Install the dependency:
 
 pip install oracledb
 
 
-Ensure you are in the correct directory and run:
+Run the application:
 
 python landing_page.py
 
-
-You will be taken to the login screen.
-
 User Guide – Login Instructions
 
-After running landing_page.py, choose the appropriate login option from the GUI.
+Select the appropriate login option from the application’s login screen.
 
 Customer Service Login
 
-Click the “Customer Service Login” button.
+Click Customer Service Login
 
-Enter the following credentials:
+Enter:
 
 Employee ID: 60001
 
@@ -116,9 +94,9 @@ Password: Josh123
 
 Content Manager Login
 
-Click the “Content Manager Login” button.
+Click Content Manager Login
 
-Enter the following credentials:
+Enter:
 
 Employee ID: 51090
 
@@ -126,9 +104,9 @@ Password: charlie123
 
 Developer Login
 
-Click the “Developer Login” button.
+Click Developer Login
 
-Enter the following credentials:
+Enter:
 
 Employee ID: 70001
 
@@ -136,27 +114,26 @@ Password: Python123
 
 Customer Login
 
-Existing customer:
+Existing Customer
 
 Username: Alice
 
 Password: passAlice
 
-New customer:
+New Customer
 
-You may register your own account using the Register option on the login screen.
+You may create your own account using the Register option.
 
 Oracle Database Credentials
 
-✅ Important:
-When logging in or registering (for any role), you will be prompted in the terminal to enter your Oracle database username and password.
+When logging in or registering, you will be prompted in the terminal to enter your Oracle username and password.
 
-These credentials are required for the application to connect to the database successfully.
+✅ These credentials are required for the application to function properly.
 
 Notes
 
-The application must be run locally.
+This application must be run locally.
 
-Ensure all Oracle credentials are entered correctly.
+Ensure Oracle credentials are entered correctly.
 
-If connection issues occur, verify Oracle client setup and network access.
+If database connection issues occur, verify Oracle client setup and access permissions.
